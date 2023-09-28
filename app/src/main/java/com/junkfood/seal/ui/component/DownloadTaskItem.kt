@@ -56,10 +56,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.junkfood.seal.R
 import com.junkfood.seal.ui.common.AsyncImageImpl
-import com.junkfood.seal.ui.theme.PreviewThemeLight
 
 enum class DownloadTaskItemStatus(
     val statusLabelId: Int, val primaryButtonIcon: ImageVector, val primaryOperationDescId: Int
@@ -128,16 +126,6 @@ fun DownloadTaskItem(
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                 )
-                /*                Image(
-                                    painter = painterResource(id = R.drawable.sample),
-                                    modifier = Modifier
-                                        .padding(12.dp)
-                                        .weight(1f)
-                                        .clip(MaterialTheme.shapes.extraSmall)
-                                        .aspectRatio(16f / 10f, matchHeightConstraintsFirst = true),
-                                    contentDescription = null,
-                                    contentScale = ContentScale.Crop,
-                                )*/
                 Column(
                     modifier = Modifier
                         .padding(vertical = 12.dp)
@@ -295,58 +283,56 @@ fun DownloadTaskItem(
 @Preview
 fun DownloadTaskItemPreview(modifier: Modifier = Modifier) {
     Column(modifier) {
-        PreviewThemeLight {
-            val hapticFeedback = LocalHapticFeedback.current
+        val hapticFeedback = LocalHapticFeedback.current
+        Row(
+            modifier = Modifier
+                .padding(horizontal = 20.dp)
+                .padding(top = 12.dp, bottom = 4.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                stringResource(R.string.download_task_count).format(5),
+                style = MaterialTheme.typography.labelLarge,
+            )
+            Spacer(modifier = Modifier.weight(1f))
             Row(
                 modifier = Modifier
-                    .padding(horizontal = 20.dp)
-                    .padding(top = 12.dp, bottom = 4.dp),
-                verticalAlignment = Alignment.CenterVertically
+                    .clip(MaterialTheme.shapes.medium)
+                    .clickable {}
+                    .padding(start = 8.dp)
+                    .padding(vertical = 2.dp), verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    stringResource(R.string.download_task_count).format(5),
+                    stringResource(R.string.recently_added),
                     style = MaterialTheme.typography.labelLarge,
                 )
-                Spacer(modifier = Modifier.weight(1f))
-                Row(
+                Icon(
                     modifier = Modifier
-                        .clip(MaterialTheme.shapes.medium)
-                        .clickable {}
-                        .padding(start = 8.dp)
-                        .padding(vertical = 2.dp), verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        stringResource(R.string.recently_added),
-                        style = MaterialTheme.typography.labelLarge,
-                    )
-                    Icon(
-                        modifier = Modifier
-                            .padding(start = 8.dp, end = 4.dp)
-                            .size(18.dp),
-                        imageVector = Icons.Outlined.ArrowDropDown,
-                        contentDescription = null
-                    )
-                }
-            }
-            Column {
-                DownloadTaskItem(expanded = false, status = DownloadTaskItemStatus.ENQUEUED)
-                DownloadTaskItem(expanded = false, status = DownloadTaskItemStatus.FETCHING_INFO)
-                DownloadTaskItem(
-                    expanded = false,
-                    progress = 1f,
-                    status = DownloadTaskItemStatus.COMPLETED
-                )
-                DownloadTaskItem(
-                    expanded = false,
-                    progress = 0f,
-                    status = DownloadTaskItemStatus.CANCELED
-                )
-                DownloadTaskItem(
-                    expanded = true,
-                    progress = 0f,
-                    status = DownloadTaskItemStatus.ERROR
+                        .padding(start = 8.dp, end = 4.dp)
+                        .size(18.dp),
+                    imageVector = Icons.Outlined.ArrowDropDown,
+                    contentDescription = null
                 )
             }
+        }
+        Column {
+            DownloadTaskItem(expanded = false, status = DownloadTaskItemStatus.ENQUEUED)
+            DownloadTaskItem(expanded = false, status = DownloadTaskItemStatus.FETCHING_INFO)
+            DownloadTaskItem(
+                expanded = false,
+                progress = 1f,
+                status = DownloadTaskItemStatus.COMPLETED
+            )
+            DownloadTaskItem(
+                expanded = false,
+                progress = 0f,
+                status = DownloadTaskItemStatus.CANCELED
+            )
+            DownloadTaskItem(
+                expanded = true,
+                progress = 0f,
+                status = DownloadTaskItemStatus.ERROR
+            )
         }
     }
 }

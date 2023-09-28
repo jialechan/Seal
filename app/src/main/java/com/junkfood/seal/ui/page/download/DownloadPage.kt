@@ -95,7 +95,6 @@ import com.junkfood.seal.ui.common.LocalWindowWidthState
 import com.junkfood.seal.ui.component.ClearButton
 import com.junkfood.seal.ui.component.NavigationBarSpacer
 import com.junkfood.seal.ui.component.VideoCard
-import com.junkfood.seal.ui.theme.PreviewThemeLight
 import com.junkfood.seal.util.CONFIGURE
 import com.junkfood.seal.util.CUSTOM_COMMAND
 import com.junkfood.seal.util.DEBUG
@@ -625,18 +624,16 @@ fun FABs(
 @Composable
 @Preview
 fun DownloadPagePreview() {
-    PreviewThemeLight {
-        Column() {
-            DownloadPageImpl(
-                downloaderState = Downloader.State.DownloadingVideo,
-                taskState = Downloader.DownloadTaskItem(),
-                viewState = DownloadViewModel.ViewState(),
-                errorState = Downloader.ErrorState(),
-                processCount = 99,
-                isPreview = true,
-                showDownloadProgress = true,
-                showVideoCard = true
-            ) {}
-        }
+    Column() {
+        DownloadPageImpl(
+            downloaderState = Downloader.State.DownloadingVideo,
+            taskState = Downloader.DownloadTaskItem(),
+            viewState = DownloadViewModel.ViewState(),
+            errorState = Downloader.ErrorState(),
+            processCount = 99,
+            isPreview = true,
+            showDownloadProgress = true,
+            showVideoCard = true
+        ) {}
     }
 }

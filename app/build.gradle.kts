@@ -180,8 +180,6 @@ kotlin {
 
 dependencies {
 
-    implementation(project(":color"))
-
     //Core libs for the app
     implementation(libs.bundles.core)
 

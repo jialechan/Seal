@@ -27,7 +27,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.junkfood.seal.R
 import com.junkfood.seal.ui.common.AsyncImageImpl
-import com.junkfood.seal.ui.theme.SealTheme
 import com.junkfood.seal.util.toDurationText
 import com.junkfood.seal.util.toFileSizeText
 
@@ -122,7 +121,5 @@ fun VideoCard(
 @Preview
 @Preview(name = "Dark Mode", uiMode = Configuration.UI_MODE_NIGHT_YES)
 fun VideoCardPreview() {
-    SealTheme() {
-        VideoCard(isPreview = true)
-    }
+    VideoCard(isPreview = true)
 }

@@ -26,12 +26,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
-import com.junkfood.seal.ui.common.LocalDarkTheme
-import com.junkfood.seal.ui.common.LocalDynamicColorSwitch
-import com.junkfood.seal.ui.common.SettingsProvider
 import com.junkfood.seal.ui.component.FilledButtonWithIcon
 import com.junkfood.seal.ui.component.HorizontalDivider
-import com.junkfood.seal.ui.theme.SealTheme
 
 class CrashReportActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,18 +40,10 @@ class CrashReportActivity : ComponentActivity() {
         val errorMessage: String = intent.getStringExtra("error_report").toString()
 
         setContent {
-            SettingsProvider(WindowWidthSizeClass.Compact) {
-                SealTheme(
-                    darkTheme = LocalDarkTheme.current.isDarkTheme(),
-                    isHighContrastModeEnabled = LocalDarkTheme.current.isHighContrastModeEnabled,
-                    isDynamicColorEnabled = LocalDynamicColorSwitch.current,
-                ) {
-                    val clipboardManager = LocalClipboardManager.current
-                    CrashReportPage(errorMessage = errorMessage) {
-                        clipboardManager.setText(AnnotatedString(errorMessage))
-                        this.finishAffinity()
-                    }
-                }
+            val clipboardManager = LocalClipboardManager.current
+            CrashReportPage(errorMessage = errorMessage) {
+                clipboardManager.setText(AnnotatedString(errorMessage))
+                this.finishAffinity()
             }
         }
     }

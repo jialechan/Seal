@@ -30,9 +30,6 @@ import coil.imageLoader
 import coil.request.ImageRequest
 import com.caverock.androidsvg.SVG
 import com.junkfood.seal.R
-import com.junkfood.seal.ui.component.parseDynamicColor
-import com.kyant.monet.LocalTonalPalettes
-import com.kyant.monet.TonalPalettes
 
 
 @Composable
@@ -47,21 +44,16 @@ fun SVGImage(
     alpha: Float = DefaultAlpha,
     colorFilter: ColorFilter? = null,
     filterQuality: FilterQuality = DrawScope.DefaultFilterQuality,
-    tonalPalettes: TonalPalettes = LocalTonalPalettes.current,
-    isDarkTheme: Boolean = LocalDarkTheme.current.isDarkTheme()
 ) {
     val horizontalPadding =
         PaddingValues(horizontal = if (LocalWindowWidthState.current != WindowWidthSizeClass.Compact) 100.dp else 0.dp)
     var size by remember { mutableStateOf(IntSize.Zero) }
 
-    val pi by remember(tonalPalettes, isDarkTheme, size) {
+    val pi by remember(size) {
         mutableStateOf(
             PictureDrawable(
                 SVG.getFromString(
-                    SVGString.parseDynamicColor(
-                        tonalPalettes = tonalPalettes,
-                        isDarkTheme = isDarkTheme
-                    )
+                    SVGString
                 ).renderToPicture(size.width, size.height)
             )
         )

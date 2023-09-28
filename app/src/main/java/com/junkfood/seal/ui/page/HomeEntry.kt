@@ -45,13 +45,13 @@ import com.junkfood.seal.ui.page.download.DownloadPage
 import com.junkfood.seal.ui.page.download.DownloadViewModel
 import com.junkfood.seal.ui.page.download.FormatPage
 import com.junkfood.seal.ui.page.download.PlaylistSelectionPage
+import com.junkfood.seal.ui.page.queue.DownloadQueuePage
 import com.junkfood.seal.ui.page.settings.SettingsPage
 import com.junkfood.seal.ui.page.settings.about.AboutPage
 import com.junkfood.seal.ui.page.settings.about.CreditsPage
 import com.junkfood.seal.ui.page.settings.about.DonatePage
 import com.junkfood.seal.ui.page.settings.about.UpdatePage
 import com.junkfood.seal.ui.page.settings.appearance.AppearancePreferences
-import com.junkfood.seal.ui.page.settings.appearance.DarkThemePreferences
 import com.junkfood.seal.ui.page.settings.appearance.LanguagePage
 import com.junkfood.seal.ui.page.settings.command.TemplateEditPage
 import com.junkfood.seal.ui.page.settings.command.TemplateListPage
@@ -295,7 +295,7 @@ fun NavGraphBuilder.settingsGraph(
         ) {
             TemplateEditPage(onBackPressed, it.arguments?.getInt(Route.TEMPLATE_ID) ?: -1)
         }
-        animatedComposable(Route.DARK_THEME) { DarkThemePreferences { onBackPressed() } }
+//        animatedComposable(Route.DARK_THEME) { DarkThemePreferences { onBackPressed() } }
         animatedComposable(Route.NETWORK_PREFERENCES) {
             NetworkPreferences(navigateToCookieProfilePage = {
                 navController.navigate(Route.COOKIE_PROFILE)

@@ -92,8 +92,7 @@ import com.junkfood.seal.ui.component.PreferenceItemVariant
 import com.junkfood.seal.ui.component.PreferenceSwitchWithContainer
 import com.junkfood.seal.ui.component.SealDialog
 import com.junkfood.seal.ui.component.TextButtonWithIcon
-import com.junkfood.seal.ui.theme.SealTheme
-import com.junkfood.seal.ui.theme.generateLabelColor
+//import com.junkfood.seal.ui.theme.generateLabelColor
 import com.junkfood.seal.util.COOKIES
 import com.junkfood.seal.util.DownloadUtil
 import com.junkfood.seal.util.FileUtil
@@ -471,11 +470,12 @@ fun CookiesQuickSettingsDialog(
                                 modifier = Modifier
                                     .padding(end = 12.dp)
                                     .size(16.dp)
-                                    .background(
-                                        color = it.url
-                                            .hashCode()
-                                            .generateLabelColor(), shape = CircleShape
-                                    )
+//                                    .background(
+//                                        color = it.url
+//                                            .hashCode()
+//                                            .generateLabelColor(),
+//                                        shape = CircleShape
+//                                    )
                                     .clearAndSetSemantics { }
                             ) {}
                             Text(
@@ -535,22 +535,20 @@ fun CookiesQuickSettingsDialog(
 @Preview(name = "Dark Mode", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun CookiesQuickSettingsDialogPreview() {
-    SealTheme {
-        var isCookiesEnabled by remember {
-            mutableStateOf(false)
-        }
-        CookiesQuickSettingsDialog(
-            cookieProfiles = mutableListOf<CookieProfile>().apply {
-                repeat(4) {
-                    add(
-                        CookieProfile(
-                            id = it,
-                            url = "https://www.example$it.com",
-                            content = ""
-                        )
-                    )
-                }
-            }, isCookiesEnabled = isCookiesEnabled, onCookiesToggled = { isCookiesEnabled = it }
-        )
+    var isCookiesEnabled by remember {
+        mutableStateOf(false)
     }
+    CookiesQuickSettingsDialog(
+        cookieProfiles = mutableListOf<CookieProfile>().apply {
+            repeat(4) {
+                add(
+                    CookieProfile(
+                        id = it,
+                        url = "https://www.example$it.com",
+                        content = ""
+                    )
+                )
+            }
+        }, isCookiesEnabled = isCookiesEnabled, onCookiesToggled = { isCookiesEnabled = it }
+    )
 }

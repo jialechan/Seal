@@ -14,7 +14,7 @@ import com.junkfood.seal.R
 import com.junkfood.seal.database.CommandTemplate
 import com.junkfood.seal.ui.theme.DEFAULT_SEED_COLOR
 import com.junkfood.seal.util.PreferenceUtil.getInt
-import com.kyant.monet.PaletteStyle
+//import com.kyant.monet.PaletteStyle
 import com.tencent.mmkv.MMKV
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -127,13 +127,13 @@ const val TEMPLATE_EXAMPLE = """--no-mtime -S "ext""""
 
 const val TEMPLATE_SHORTCUTS = "template_shortcuts"
 
-val paletteStyles = listOf(
-    PaletteStyle.TonalSpot,
-    PaletteStyle.Spritz,
-    PaletteStyle.FruitSalad,
-    PaletteStyle.Vibrant,
-    PaletteStyle.Monochrome
-)
+//val paletteStyles = listOf(
+//    PaletteStyle.TonalSpot,
+//    PaletteStyle.Spritz,
+//    PaletteStyle.FruitSalad,
+//    PaletteStyle.Vibrant,
+//    PaletteStyle.Monochrome
+//)
 
 const val STYLE_TONAL_SPOT = 0
 const val STYLE_SPRITZ = 1
@@ -321,14 +321,14 @@ object PreferenceUtil {
         }
     }
 
-    fun switchDynamicColor(enabled: Boolean = !mutableAppSettingsStateFlow.value.isDynamicColorEnabled) {
-        applicationScope.launch(Dispatchers.IO) {
-            mutableAppSettingsStateFlow.update {
-                it.copy(isDynamicColorEnabled = enabled)
-            }
-            kv.encode(DYNAMIC_COLOR, enabled)
-        }
-    }
+//    fun switchDynamicColor(enabled: Boolean = !mutableAppSettingsStateFlow.value.isDynamicColorEnabled) {
+//        applicationScope.launch(Dispatchers.IO) {
+//            mutableAppSettingsStateFlow.update {
+//                it.copy(isDynamicColorEnabled = enabled)
+//            }
+//            kv.encode(DYNAMIC_COLOR, enabled)
+//        }
+//    }
 
 
     private const val TAG = "PreferenceUtil"

@@ -15,13 +15,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.junkfood.seal.App.Companion.context
-import com.junkfood.seal.ui.common.LocalDarkTheme
-import com.junkfood.seal.ui.common.LocalDynamicColorSwitch
-import com.junkfood.seal.ui.common.SettingsProvider
 import com.junkfood.seal.ui.page.HomeEntry
 import com.junkfood.seal.ui.page.download.DownloadViewModel
 import com.junkfood.seal.ui.page.settings.network.CookiesViewModel
-import com.junkfood.seal.ui.theme.SealTheme
 import com.junkfood.seal.util.PreferenceUtil
 import com.junkfood.seal.util.matchUrlFromSharedText
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,20 +50,11 @@ class MainActivity : AppCompatActivity() {
 
             val isUrlSharingTriggered =
                 downloadViewModel.viewStateFlow.collectAsState().value.isUrlSharingTriggered
-            val windowSizeClass = calculateWindowSizeClass(this)
-            SettingsProvider(windowWidthSizeClass = windowSizeClass.widthSizeClass) {
-                SealTheme(
-                    darkTheme = LocalDarkTheme.current.isDarkTheme(),
-                    isHighContrastModeEnabled = LocalDarkTheme.current.isHighContrastModeEnabled,
-                    isDynamicColorEnabled = LocalDynamicColorSwitch.current,
-                ) {
-                    HomeEntry(
-                        downloadViewModel = downloadViewModel,
-                        cookiesViewModel = cookiesViewModel,
-                        isUrlShared = isUrlSharingTriggered
-                    )
-                }
-            }
+            HomeEntry(
+                downloadViewModel = downloadViewModel,
+                cookiesViewModel = cookiesViewModel,
+                isUrlShared = isUrlSharingTriggered
+            )
 
             handleShareIntent(intent)
         }

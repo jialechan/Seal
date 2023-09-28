@@ -54,13 +54,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.junkfood.seal.R
-import com.junkfood.seal.ui.theme.FixedAccentColors
-import com.junkfood.seal.ui.theme.PreviewThemeLight
-import com.junkfood.seal.ui.theme.applyOpacity
-import com.junkfood.seal.ui.theme.harmonizeWithPrimary
 import com.junkfood.seal.ui.theme.preferenceTitle
-import com.kyant.monet.LocalTonalPalettes
-import com.kyant.monet.TonalPalettes.Companion.toTonalPalettes
 
 private const val horizontal = 8
 private const val vertical = 16
@@ -104,7 +98,7 @@ fun PreferenceItem(
                         modifier = Modifier
                             .padding(start = 8.dp, end = 16.dp)
                             .size(24.dp),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant.applyOpacity(enabled)
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
 
@@ -115,7 +109,7 @@ fun PreferenceItem(
                         modifier = Modifier
                             .padding(start = 8.dp, end = 16.dp)
                             .size(24.dp),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant.applyOpacity(enabled)
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
             }
@@ -192,7 +186,7 @@ fun PreferenceItemVariant(
                     modifier = Modifier
                         .padding(start = 8.dp, end = 16.dp)
                         .size(24.dp),
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant.applyOpacity(enabled)
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
             Column(
@@ -206,11 +200,11 @@ fun PreferenceItemVariant(
                         text = title,
                         maxLines = 1,
                         style = typography.titleMedium,
-                        color = colorScheme.onSurface.applyOpacity(enabled)
+                        color = colorScheme.onSurface
                     )
                     if (description != null) Text(
                         text = description,
-                        color = colorScheme.onSurfaceVariant.applyOpacity(enabled),
+                        color = colorScheme.onSurfaceVariant,
                         maxLines = 2, overflow = TextOverflow.Ellipsis,
                         style = typography.bodyMedium,
                     )
@@ -279,7 +273,7 @@ internal fun PreferenceItemTitle(
         text = text,
         maxLines = maxLines,
         style = style,
-        color = color.applyOpacity(enabled),
+        color = color,
         overflow = overflow
     )
 }
@@ -299,7 +293,7 @@ internal fun PreferenceItemDescription(
         text = text,
         maxLines = maxLines,
         style = style,
-        color = color.applyOpacity(enabled),
+        color = color,
         overflow = overflow
     )
 }
@@ -364,7 +358,7 @@ fun PreferenceSwitch(
                     modifier = Modifier
                         .padding(start = 8.dp, end = 16.dp)
                         .size(24.dp),
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant.applyOpacity(enabled)
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
             Column(
@@ -433,7 +427,7 @@ fun PreferenceSwitchWithDivider(
                     modifier = Modifier
                         .padding(start = 8.dp, end = 16.dp)
                         .size(24.dp),
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant.applyOpacity(enabled)
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
             Column(
@@ -468,73 +462,14 @@ fun PreferenceSwitchWithDivider(
     }
 }
 
-@Composable
-fun PreferencesCautionCard(
-    title: String,
-    description: String? = null,
-    icon: ImageVector? = null,
-    onClick: () -> Unit = {},
-) {
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 12.dp)
-            .clip(MaterialTheme.shapes.extraLarge)
-            .background(MaterialTheme.colorScheme.errorContainer.harmonizeWithPrimary())
-            .clickable { onClick() }
-            .padding(horizontal = 12.dp, vertical = 16.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        icon?.let {
-            Icon(
-                imageVector = icon,
-                contentDescription = null,
-                modifier = Modifier
-                    .padding(start = 8.dp, end = 16.dp)
-                    .size(24.dp),
-                tint = MaterialTheme.colorScheme.error.harmonizeWithPrimary()
-
-            )
-        }
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .padding(start = if (icon == null) 12.dp else 0.dp, end = 12.dp)
-        ) {
-            with(MaterialTheme) {
-
-                Text(
-                    text = title,
-                    maxLines = 1,
-                    style = typography.titleLarge.copy(fontSize = 20.sp),
-                    color = colorScheme.onErrorContainer.harmonizeWithPrimary()
-                )
-                if (description != null) Text(
-                    text = description,
-                    color = colorScheme.onErrorContainer.harmonizeWithPrimary(),
-                    maxLines = 2, overflow = TextOverflow.Ellipsis,
-                    style = typography.bodyMedium,
-                )
-            }
-        }
-    }
-
-
-}
-
 @Preview
 @Composable
 fun PreferencesHintCardPreview() {
-    CompositionLocalProvider(LocalTonalPalettes provides Color.Green.toTonalPalettes()) {
-        PreferencesHintCard(
-            title = "Explore new features",
-            icon = Icons.Outlined.TipsAndUpdates,
-            description = "Find out what's new in this version",
-            containerColor = FixedAccentColors.primaryFixed,
-            contentColor = FixedAccentColors.onPrimaryFixed,
-        )
-    }
+    PreferencesHintCard(
+        title = "Explore new features",
+        icon = Icons.Outlined.TipsAndUpdates,
+        description = "Find out what's new in this version",
+    )
 }
 
 @Composable
@@ -542,8 +477,7 @@ fun PreferencesHintCard(
     title: String = "Title ".repeat(2),
     description: String? = "Description text ".repeat(3),
     icon: ImageVector? = Icons.Outlined.Translate,
-    containerColor: Color = FixedAccentColors.secondaryFixed,
-    contentColor: Color = FixedAccentColors.onSecondaryFixed,
+    containerColor: Color = Color(0xFFF5F5F5),
     onClick: () -> Unit = {},
 ) {
     Row(
@@ -563,7 +497,6 @@ fun PreferencesHintCard(
                 modifier = Modifier
                     .padding(start = 8.dp, end = 16.dp)
                     .size(24.dp),
-                tint = contentColor
             )
         }
         Column(
@@ -576,11 +509,9 @@ fun PreferencesHintCard(
                     text = title,
                     maxLines = 1,
                     style = typography.titleLarge.copy(fontSize = 20.sp),
-                    color = contentColor
                 )
                 if (description != null) Text(
                     text = description,
-                    color = contentColor,
                     maxLines = 2, overflow = TextOverflow.Ellipsis,
                     style = typography.bodyMedium,
                 )
@@ -593,14 +524,12 @@ fun PreferencesHintCard(
 @Preview
 private fun PreferenceSwitchWithContainerPreview() {
     var isChecked by remember { mutableStateOf(false) }
-    PreviewThemeLight {
-        PreferenceSwitchWithContainer(
-            title = "Title ".repeat(2),
-            isChecked = isChecked,
-            onClick = { isChecked = !isChecked },
-            icon = null
-        )
-    }
+    PreferenceSwitchWithContainer(
+        title = "Title ".repeat(2),
+        isChecked = isChecked,
+        onClick = { isChecked = !isChecked },
+        icon = null
+    )
 }
 
 @Composable
@@ -626,9 +555,6 @@ fun PreferenceSwitchWithContainer(
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 12.dp)
             .clip(MaterialTheme.shapes.extraLarge)
-            .background(
-                if (isChecked) FixedAccentColors.primaryFixed else MaterialTheme.colorScheme.outline
-            )
             .toggleable(value = isChecked) { onClick() }
             .padding(horizontal = 16.dp, vertical = 20.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -640,7 +566,6 @@ fun PreferenceSwitchWithContainer(
                 modifier = Modifier
                     .padding(start = 8.dp, end = 16.dp)
                     .size(24.dp),
-                tint = if (isChecked) FixedAccentColors.onPrimaryFixed else MaterialTheme.colorScheme.surface
             )
         }
         Column(
@@ -653,7 +578,6 @@ fun PreferenceSwitchWithContainer(
                     text = title,
                     maxLines = 2,
                     style = preferenceTitle,
-                    color = if (isChecked) FixedAccentColors.onPrimaryFixed else colorScheme.surface
                 )
             }
         }
@@ -663,9 +587,6 @@ fun PreferenceSwitchWithContainer(
             modifier = Modifier.padding(start = 12.dp, end = 6.dp),
             thumbContent = thumbContent,
             colors = SwitchDefaults.colors(
-                checkedIconColor = FixedAccentColors.onPrimaryFixed,
-                checkedThumbColor = FixedAccentColors.primaryFixed,
-                checkedTrackColor = FixedAccentColors.onPrimaryFixedVariant,
                 uncheckedBorderColor = Color.Transparent
             )
         )
@@ -696,12 +617,12 @@ fun CreditItem(
                         text = title,
                         maxLines = 1,
                         style = typography.titleMedium,
-                        color = colorScheme.onSurface.applyOpacity(enabled)
+                        color = colorScheme.onSurface
                     )
                     license?.let {
                         Text(
                             text = it,
-                            color = colorScheme.onSurfaceVariant.applyOpacity(enabled),
+                            color = colorScheme.onSurfaceVariant,
                             maxLines = 2, overflow = TextOverflow.Ellipsis,
                             style = typography.bodyMedium,
                         )
@@ -797,13 +718,8 @@ fun TemplateItem(
                 }
 
             }
-
-
         }
-
-
     }
-
 }
 
 @Composable

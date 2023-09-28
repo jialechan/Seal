@@ -24,12 +24,8 @@ import androidx.compose.runtime.setValue
 import androidx.core.os.LocaleListCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
-import com.junkfood.seal.ui.common.LocalDarkTheme
-import com.junkfood.seal.ui.common.LocalDynamicColorSwitch
 import com.junkfood.seal.ui.common.LocalWindowWidthState
-import com.junkfood.seal.ui.common.SettingsProvider
 import com.junkfood.seal.ui.page.download.DownloadSettingDialog
-import com.junkfood.seal.ui.theme.SealTheme
 import com.junkfood.seal.util.CONFIGURE
 import com.junkfood.seal.util.CUSTOM_COMMAND
 import com.junkfood.seal.util.PreferenceUtil
@@ -112,43 +108,31 @@ class QuickDownloadActivity : ComponentActivity() {
 
         setContent {
             val scope = rememberCoroutineScope()
-            SettingsProvider(
-                windowWidthSizeClass = calculateWindowSizeClass(this).widthSizeClass
-            ) {
-                SealTheme(
-                    darkTheme = LocalDarkTheme.current.isDarkTheme(),
-                    isHighContrastModeEnabled = LocalDarkTheme.current.isHighContrastModeEnabled,
-                    isDynamicColorEnabled = LocalDynamicColorSwitch.current,
-                ) {
+            var showDialog by remember { mutableStateOf(true) }
+            val drawerState =
+                rememberModalBottomSheetState(
+                    initialValue = ModalBottomSheetValue.Expanded,
+                    skipHalfExpanded = true
+                )
 
-
-                    var showDialog by remember { mutableStateOf(true) }
-                    val drawerState =
-                        rememberModalBottomSheetState(
-                            initialValue = ModalBottomSheetValue.Expanded,
-                            skipHalfExpanded = true
-                        )
-
-                    LaunchedEffect(drawerState.currentValue, showDialog) {
-                        if (drawerState.currentValue == ModalBottomSheetValue.Hidden || !showDialog)
-                            this@QuickDownloadActivity.finish()
-                    }
-
-                    DownloadSettingDialog(
-                        useDialog = LocalWindowWidthState.current != WindowWidthSizeClass.Compact,
-                        dialogState = showDialog,
-                        isQuickDownload = true,
-                        drawerState = drawerState,
-                        confirm = {
-                            onDownloadStarted(PreferenceUtil.getValue(CUSTOM_COMMAND))
-                        },
-                        hide = {
-                            scope.launch { drawerState.hide() }
-                            showDialog = false
-                        },
-                    )
-                }
+            LaunchedEffect(drawerState.currentValue, showDialog) {
+                if (drawerState.currentValue == ModalBottomSheetValue.Hidden || !showDialog)
+                    this@QuickDownloadActivity.finish()
             }
+
+            DownloadSettingDialog(
+                useDialog = LocalWindowWidthState.current != WindowWidthSizeClass.Compact,
+                dialogState = showDialog,
+                isQuickDownload = true,
+                drawerState = drawerState,
+                confirm = {
+                    onDownloadStarted(PreferenceUtil.getValue(CUSTOM_COMMAND))
+                },
+                hide = {
+                    scope.launch { drawerState.hide() }
+                    showDialog = false
+                },
+            )
         }
     }
 

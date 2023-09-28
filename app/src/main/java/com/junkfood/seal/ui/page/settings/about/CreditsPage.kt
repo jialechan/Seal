@@ -27,8 +27,8 @@ import com.junkfood.seal.ui.component.BackButton
 import com.junkfood.seal.ui.component.CreditItem
 import com.junkfood.seal.ui.component.LargeTopAppBar
 import com.junkfood.seal.ui.svg.CreditSVG
-import com.junkfood.seal.ui.theme.autoDark
-import com.kyant.monet.n1
+//import com.junkfood.seal.ui.theme.autoDark
+//import com.kyant.monet.n1
 
 data class Credit(val title: String = "", val license: String? = null, val url: String = "")
 
@@ -120,7 +120,7 @@ fun CreditsPage(onBackPressed: () -> Unit) {
                             .clip(MaterialTheme.shapes.large)
                             .clickable { }
                             .clearAndSetSemantics { },
-                        color = 95.autoDark().n1
+//                        color = 95.autoDark().n1
                     ) {
                         SVGImage(
                             SVGString = CreditSVG,

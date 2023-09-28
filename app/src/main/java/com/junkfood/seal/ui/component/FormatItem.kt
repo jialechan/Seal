@@ -55,13 +55,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.junkfood.seal.R
 import com.junkfood.seal.ui.common.LocalWindowWidthState
-import com.junkfood.seal.ui.theme.SealTheme
 import com.junkfood.seal.util.Format
 import com.junkfood.seal.util.connectWithBlank
 import com.junkfood.seal.util.connectWithDelimiter
 import com.junkfood.seal.util.toDurationText
 import com.junkfood.seal.util.toFileSizeText
-
 
 @Composable
 fun FormatVideoPreview(
@@ -219,22 +217,20 @@ fun FormatVideoPreview(
 @Composable
 @Preview
 fun VideoInfoPreview() {
-    SealTheme {
-        Surface {
-            Column {
-                FormatVideoPreview(
-                    title = stringResource(id = R.string.video_title_sample_text),
-                    author = stringResource(
-                        id = R.string.video_creator_sample_text
-                    ),
-                    thumbnailUrl = "",
-                    duration = 7890,
-                    isSplittingVideo = false,
-                    isClippingVideo = false,
-                    isSplitByChapterAvailable = true,
-                    isClippingAvailable = true
-                )
-            }
+    Surface {
+        Column {
+            FormatVideoPreview(
+                title = stringResource(id = R.string.video_title_sample_text),
+                author = stringResource(
+                    id = R.string.video_creator_sample_text
+                ),
+                thumbnailUrl = "",
+                duration = 7890,
+                isSplittingVideo = false,
+                isClippingVideo = false,
+                isSplitByChapterAvailable = true,
+                isClippingAvailable = true
+            )
         }
     }
 }
